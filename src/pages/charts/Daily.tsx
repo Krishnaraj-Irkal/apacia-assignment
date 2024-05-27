@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import AdminSidebar from "../../components/AdminSidebar";
 import { LineChart } from "../../components/Charts";
 import { Select, DatePicker } from "antd";
-import moment, { Moment } from "moment";
+import moment from "moment";
 import "react-datepicker/dist/react-datepicker.css";
 import { dailyData } from "./data/dailydata";
 
@@ -26,16 +26,19 @@ const Daily = () => {
   const handleRangeChange = (value: string) => {
     setSelectedRange(value);
     const endDate = moment().format("YYYY-MM-DD");
-    const startDate = moment().subtract(parseInt(value), "days").format("YYYY-MM-DD");
+    const startDate = moment()
+      .subtract(parseInt(value), "days")
+      .format("YYYY-MM-DD");
     setDateRange([startDate, endDate]);
   };
 
   // Handle change in custom date picker
-  const handleDateChange = (dates: [Moment, Moment] | null) => {
-    if (dates) {
+  const handleDateChange = (
+    dates: [moment.Moment | null, moment.Moment | null] | null
+  ) => {
+    if (dates && dates[0] && dates[1]) {
       const startDate = dates[0].format("YYYY-MM-DD");
       const endDate = dates[1].format("YYYY-MM-DD");
-      // const daysDifference = dates[1].diff(dates[0], "days");
       setSelectedRange("Custom");
       setDateRange([startDate, endDate]);
     }

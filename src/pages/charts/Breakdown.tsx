@@ -13,7 +13,7 @@ const Breakdown = () => {
   const data = salesByCategory.map((item) => item.value);
 
   // Function to generate random HSL color codes
-  const getRandomColor = (value) => {
+  const getRandomColor = () => {
     const hue = Math.floor(Math.random() * 360); // Random hue value (0-360)
     const saturation = Math.floor(Math.random() * 50) + 50; // Random saturation value (50-100)
     const lightness = 50; // Fixed lightness value
@@ -21,7 +21,7 @@ const Breakdown = () => {
   };
 
   // Generate random HSL color codes for each category based on value
-  const backgroundColor = data.map((value) => getRandomColor(value));
+  const backgroundColor = data.map(() => getRandomColor());
 
   return (
     <div className="admin-container">
