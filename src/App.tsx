@@ -1,4 +1,9 @@
-import { Router, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import { Suspense, lazy } from "react";
 import Loader from "./components/Loader";
 
@@ -27,8 +32,8 @@ const App = () => {
           <Route
             path="/"
             element={
-              <Navigate to="/dashboard">
-              </Navigate>
+              <Navigate to="/dashboard" />
+
             }
           />
 

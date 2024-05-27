@@ -1,5 +1,5 @@
 import AdminSidebar from "../../components/AdminSidebar";
-import { DoughnutChart, PieChart } from "../../components/Charts";
+import { DoughnutChart } from "../../components/Charts";
 
 const salesByCategory = [
   { heading: "Shoes", value: 6515 },

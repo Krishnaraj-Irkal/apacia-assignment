@@ -12,7 +12,6 @@ import {
   Filler,
   ChartData,
   ChartOptions,
-  registerables,
 } from "chart.js";
 import { Bar, Doughnut, Line, Pie } from "react-chartjs-2";
 import zoomPlugin from "chartjs-plugin-zoom";
@@ -134,7 +133,7 @@ interface DoughnutChartProps {
   labels: string[];
   data: number[];
   backgroundColor: string[];
-  cutout?: number | string;
+
   legends?: boolean;
   offset?: number[];
 }
@@ -143,7 +142,7 @@ export const DoughnutChart = ({
   labels,
   data,
   backgroundColor,
-  cutout,
+  // cutout,
   legends = true,
   offset,
 }: DoughnutChartProps) => {
@@ -238,7 +237,7 @@ interface LineChartProps {
 export const LineChart: React.FC<LineChartProps> = ({
   data,
   labels,
-  borderColor,
+  // borderColor,
 }) => {
   const options: ChartOptions<'line'> = {
     responsive: true,

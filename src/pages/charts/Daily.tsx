@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import AdminSidebar from "../../components/AdminSidebar";
 import { LineChart } from "../../components/Charts";
 import { Select, DatePicker } from "antd";
