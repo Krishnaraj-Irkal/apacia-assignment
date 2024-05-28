@@ -2,9 +2,12 @@ import { useState, useEffect } from "react";
 import AdminSidebar from "../../components/AdminSidebar";
 import { LineChart } from "../../components/Charts";
 import { Select, DatePicker } from "antd";
-import moment from "moment";
+import dayjs, { Dayjs } from "dayjs";
+import isBetween from "dayjs/plugin/isBetween";
 import "react-datepicker/dist/react-datepicker.css";
 import { dailyData } from "./data/dailydata";
+
+dayjs.extend(isBetween); // Extend dayjs with isBetween plugin
 
 const { RangePicker } = DatePicker;
 const { Option } = Select;
@@ -12,8 +15,8 @@ const { Option } = Select;
 const Daily = () => {
   // State to manage the date range
   const [dateRange, setDateRange] = useState<[string, string]>([
-    moment().subtract(7, "days").format("YYYY-MM-DD"),
-    moment().format("YYYY-MM-DD"),
+    dayjs().subtract(7, "days").format("YYYY-MM-DD"),
+    dayjs().format("YYYY-MM-DD"),
   ]);
 
   // State to manage the selected range in days
@@ -25,8 +28,8 @@ const Daily = () => {
   // Handle change in predefined range selection
   const handleRangeChange = (value: string) => {
     setSelectedRange(value);
-    const endDate = moment().format("YYYY-MM-DD");
-    const startDate = moment()
+    const endDate = dayjs().format("YYYY-MM-DD");
+    const startDate = dayjs()
       .subtract(parseInt(value), "days")
       .format("YYYY-MM-DD");
     setDateRange([startDate, endDate]);
@@ -34,11 +37,12 @@ const Daily = () => {
 
   // Handle change in custom date picker
   const handleDateChange = (
-    dates: [moment.Moment | null, moment.Moment | null] | null
+    dates: [Dayjs | null, Dayjs | null],
+    dateStrings: [string, string]
   ) => {
     if (dates && dates[0] && dates[1]) {
-      const startDate = dates[0].format("YYYY-MM-DD");
-      const endDate = dates[1].format("YYYY-MM-DD");
+      const startDate = dateStrings[0];
+      const endDate = dateStrings[1];
       setSelectedRange("Custom");
       setDateRange([startDate, endDate]);
     }
@@ -48,7 +52,7 @@ const Daily = () => {
   useEffect(() => {
     const [startDate, endDate] = dateRange;
     const filtered = dailyData.filter((data) => {
-      const date = moment(data.date, "YYYY-MM-DD");
+      const date = dayjs(data.date, "YYYY-MM-DD");
       return date.isBetween(startDate, endDate, null, "[]");
     });
     setFilteredData(filtered);
@@ -61,8 +65,8 @@ const Daily = () => {
         <h1>Chart of daily sales</h1>
         <div className="chart-filter-bar">
           <RangePicker
-            value={[moment(dateRange[0]), moment(dateRange[1])]}
-            onChange={handleDateChange}
+            value={[dayjs(dateRange[0]), dayjs(dateRange[1])]}
+            onChange={() => handleDateChange}
             format="YYYY-MM-DD"
           />
           <Select

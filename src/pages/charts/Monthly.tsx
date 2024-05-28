@@ -3,26 +3,45 @@ import AdminSidebar from "../../components/AdminSidebar";
 import { BarChart } from "../../components/Charts";
 import { DatePicker } from "antd";
 import moment from "moment";
-import { MonthlyData } from "./data/MonthlyData";
+import { MonthlyData } from "./data/monthlyData";
+
+// Define the type of MonthlyData
+interface MonthlyDataType {
+  [year: string]: {
+    month: string;
+    totalSales: number;
+    totalUnits: number;
+  }[];
+}
+
+const monthlyData: MonthlyDataType = MonthlyData; // Explicitly type MonthlyData
 
 const Monthly = () => {
   const [selectedYear, setSelectedYear] = useState(moment().year());
-  const [filteredData, setFilteredData] = useState(MonthlyData[selectedYear] || []);
+  const [filteredData, setFilteredData] = useState(
+    monthlyData[selectedYear.toString()] || []
+  );
 
-  const handleYearChange = (date) => {
-    const year = date.year();
-    setSelectedYear(year);
-    setFilteredData(MonthlyData[year] || []);
+  const handleYearChange = (date: moment.Moment | null) => {
+    if (date) {
+      const year = date.year();
+      setSelectedYear(year);
+      setFilteredData(monthlyData[year.toString()] || []);
+    }
   };
 
   const totalSalesData = filteredData.map(
-    (item: { totalSales: number }) => item.totalSales
+    (item) => item.totalSales
   );
-  const totalUnitsData = filteredData.map((item) => item.totalUnits);
+  const totalUnitsData = filteredData.map(
+    (item) => item.totalUnits
+  );
   const months = filteredData.map((item) => item.month);
 
   // Set the default value of the DatePicker to the first day of the selected year
-  const defaultPickerValue = moment().year(selectedYear).startOf("year");
+  const defaultPickerValue = moment()
+    .year(selectedYear)
+    .startOf("year");
 
   return (
     <div className="admin-container">

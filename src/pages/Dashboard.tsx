@@ -86,7 +86,7 @@ const dashboard = () => {
               labels={["Female", "Male"]}
               data={[12, 19]}
               backgroundColor={["hsl(340,82%,56%)", "rgba(53,162,235,0.8)"]}
-              cutout={90}
+            // cutout={90}
             />
 
             <p>
