@@ -35,9 +35,8 @@ const Daily = () => {
     setDateRange([startDate, endDate]);
   };
 
-  // Handle change in custom date picker
   const handleDateChange = (
-    dates: [Dayjs | null, Dayjs | null],
+    dates: [Dayjs | null, Dayjs | null] | null,
     dateStrings: [string, string]
   ) => {
     if (dates && dates[0] && dates[1]) {
