@@ -66,7 +66,7 @@ const Daily = () => {
         <div className="chart-filter-bar">
           <RangePicker
             value={[dayjs(dateRange[0]), dayjs(dateRange[1])]}
-            onChange={() => handleDateChange}
+            onChange={handleDateChange}
             format="YYYY-MM-DD"
           />
           <Select
